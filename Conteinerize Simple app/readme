@@ -1,0 +1,17 @@
+#build image
+docker build -t dockerapp:v0.1 .
+
+#list images
+docker images
+
+#run image port forward
+docker run -d -p 5000:5000 #imageId
+
+#list running machines
+docker-machine ls
+
+#enter bash on imageId
+docker exec -it #imageId bash
+
+#list running processes
+ps axu
