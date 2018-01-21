@@ -4,3 +4,11 @@
 php
 git pull repo
 #run the container and forward the port
+
+
+######
+docker build -t mx7:v0.1 .
+
+docker run -it mx7:v0.1
+
+docker run -d -p 80:80 mx7:v0.1

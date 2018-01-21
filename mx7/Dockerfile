@@ -2,7 +2,7 @@ FROM debian:jessie
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
      && apt-get -y upgrade \ 
-     && apt-get -y install git apache2 mysql-server-5.5
+     && apt-get -y install git apache2 mysql-server-5.5 wget nano libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libxslt-dev build-essential
 RUN { \
         echo debconf debconf/frontend select Noninteractive; \
         echo mysql-community-server mysql-community-server/root-pass \
@@ -12,9 +12,16 @@ RUN { \
         echo mysql-community-server mysql-community-server/remove-test-db select false; \
     } | debconf-set-selections \
     && apt-get update && apt-get install -y mysql-server
+WORKDIR /home
+RUN wget http://ro1.php.net/get/php-5.5.29.tar.gz/from/this/mirror -O php.tar.gz
+RUN tar -zxvf php.tar.gz
+WORKDIR php-5.5.29
+RUN ./configure --prefix=/usr/local/php --enable-mbstring --with-curl --with-xmlrpc --enable-soap --enable-zip --with-gd --with-jpeg-dir --with-mysql --with-pgsql --enable-embedded-mysqli --with-freetype-dir --enable-intl --with-xsl
+RUN make
+RUN make install
 #RUN useradd -G www-data -d /home/admin admin
 #USER admin
 EXPOSE 80
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
-CMD service mysql start
+RUN service mysql start
 CMD apachectl -D FOREGROUND
