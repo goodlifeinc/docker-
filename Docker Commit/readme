@@ -1,0 +1,10 @@
+#search for image debian
+hub.docker.com/_/debian
+
+#install
+docker run -it debian:jessie
+
+#commit
+docker commit #container_ID repository_name:tag
+
+docker ps -a
