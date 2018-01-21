@@ -13,9 +13,9 @@ RUN { \
     } | debconf-set-selections \
     && apt-get update && apt-get install -y mysql-server
 WORKDIR /home
-# RUN wget http://museum.php.net/php5/php-5.2.17.tar.gz -O php.tar.gz
-# RUN tar -zxvf php.tar.gz
-# WORKDIR php-5.2.17
+RUN wget http://museum.php.net/php5/php-5.2.17.tar.gz -O php.tar.gz
+RUN tar -zxvf php.tar.gz
+WORKDIR php-5.2.17
 # RUN ./configure --prefix=/usr/local/php --enable-mbstring --with-curl --with-xmlrpc --enable-soap --enable-zip --with-gd --with-jpeg-dir --with-mysql --with-pgsql --enable-embedded-mysqli --with-freetype-dir --enable-intl --with-xsl
 # RUN make
 # RUN make install
